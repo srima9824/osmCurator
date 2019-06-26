@@ -1,0 +1,42 @@
+---
+        actions:
+          1:
+                action: delete_indices
+                description: >-
+                 Delete indices which is older than 7 days (based on index name), for logstash-prefixed indices. Ignore the error if the filt$
+                options:
+                        ignore_empty_list: True
+                        continue_if_exception: False
+                        disable_action: False
+                filters:
+                        - filtertype: pattern
+                          kind: prefix
+                          value: rds-slowquery-logs
+                          exclude: True
+                        - filtertype: age
+                          source: name
+                          direction: older
+                          unit: days
+                          unit_count: {{delete1_unit_count}}
+                          timestring: "%Y.%m.%d"
+
+	2:
+                action: delete_indices
+                description: >-
+                 Delete indices which are older than 30 days (based on index name), for logstash-prefixed indices. Ignore the error if the fi$
+                options:
+                        ignore_empty_list: True
+                        continue_if_exception: False
+                        disable_action: False
+                filters:
+                        - filtertype: pattern
+                          kind: prefix
+                          value: rds-slowquery-logs
+                          exclude: True
+                        - filtertype: age
+                          source: name
+                          direction: older
+                          unit: days
+                          unit_count: {{delete2_unit_count}}
+                          timestring: "%Y.%m.%d"
+

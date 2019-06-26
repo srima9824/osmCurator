@@ -1,0 +1,49 @@
+---
+# tasks file for install_curator
+
+        - name: Install curator
+          import_tasks: install_curator.yml
+
+        - name: Create elasticsearch-curator config dir
+          file:
+                path: "{{ elasticsearch_curator_conf_dir }}"
+                state: directory
+
+        - name: Create elasticsearch-curator config file
+          template:
+                src: curator.yml.j2
+                dest: "{{ elasticsearch_curator_conf_dir }}/curator.yml"
+                owner: root
+                group: root
+                mode: 0644
+
+        - name: Create elasticsearch-curator actions snapshot file
+          template:
+                src: snapshot.yml.j2
+                dest: "{{ elasticsearch_curator_conf_dir }}/snapshot.yml"
+                owner: root
+                group: root
+                mode: 0644
+
+        - name: Create elasticsearch-curator actions deleteindex file
+          template:
+                src: deleteindex.yml.j2
+                dest: "{{ elasticsearch_curator_conf_dir }}/deleteindex.yml"
+                owner: root
+                group: root
+                mode: 0644
+        
+        # Cron jobs
+        - name: Create cron job for elasticsearch-curator
+          cron:
+                name: "{{ elasticsearch_curator_cron_job.description|default('Curate Elasticsearch Indices') }}"
+                minute: "{{ elasticsearch_curator_cron_job.minute|default('*') }}"
+                hour: "{{ elasticsearch_curator_cron_job.hour|default('*') }}"
+                day: "{{ elasticsearch_curator_cron_job.day|default('*') }}"
+                weekday: "{{ elasticsearch_curator_cron_job.weekday|default('*') }}"
+                month: "{{ elasticsearch_curator_cron_job.month|default('*') }}"
+                user: "{{ elasticsearch_curator_cron_job.user|default('root') }}"
+                job: "{{elasticsearch_curator_cron_command}}"
+                cron_file: elasticsearch-curator
+          when: "{{elasticsearch_curator_cron_job}}"
+
