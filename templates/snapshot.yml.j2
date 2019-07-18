@@ -1,0 +1,16 @@
+---
+        actions:
+                1:
+                        action: snapshot
+                        options:
+                                repository: {{s3_repository_path}}
+                                name: {{name_of_repository}}
+                        filters:
+                                - filtertype: {{snapshot_filter_type}}
+                                  source: {{snapshot_source_name}}
+                                  direction: {{snapshot_direction}}
+                                  unit: {{snapshot_unit}}
+                                  unit_count: {{snapshot_unit_count}}
+                                  timestring: "%Y.%m.%d"
+
+

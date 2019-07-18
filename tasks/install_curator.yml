@@ -1,0 +1,27 @@
+---
+- name: upgrade all packages | Redhat
+  yum:
+     name: '*'
+     state: latest
+  when: ansible_os_family|lower == 'redhat'
+      
+- name: Ensure epel-release is there |Redhat
+  yum:
+      name: epel-release
+      state: present
+  when: ansible_os_family|lower == 'redhat'
+
+- name: Install python-pip | Debian
+  apt: name=python-pip state=present
+  when: ansible_os_family|lower == 'debian'
+
+- name: Install python-pip | RedHat
+  yum: name=python-pip state=present enablerepo=epel
+  when: ansible_os_family|lower == 'redhat'
+
+- name: Install elasticsearch-curator
+  pip:
+     name: elasticsearch-curator
+     version: "{{ elasticsearch_curator_version }}"
+     state: present
+

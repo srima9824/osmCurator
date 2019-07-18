@@ -1,0 +1,20 @@
+---
+galaxy_info:
+ author: srima9824@gmail.com
+ description: Blackbox Exporter ansible role for installing and configuring blackbox exporter.
+ company: "Opstree Solutions"
+ license: "license (BSD, MIT)"
+ min_ansible_version: 2.6
+ platforms:
+   - name: EL
+     versions:
+       - 7
+   - name: Ubuntu
+     versions:
+       - xenial
+       - bionic
+ galaxy_tags:
+       - elasticsearch
+       - curator
+       - snapshot
+...
