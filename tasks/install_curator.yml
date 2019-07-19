@@ -24,4 +24,3 @@
      name: elasticsearch-curator
      version: "{{ elasticsearch_curator_version }}"
      state: present
-
