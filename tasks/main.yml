@@ -44,6 +44,4 @@
                 month: "{{ elasticsearch_curator_cron_job.month|default('*') }}"
                 user: "{{ elasticsearch_curator_cron_job.user|default('root') }}"
                 job: "{{elasticsearch_curator_cron_command}}"
-                cron_file: elasticsearch-curator
-          when: "{{elasticsearch_curator_cron_job}}"
-
+                
